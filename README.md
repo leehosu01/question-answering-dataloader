@@ -25,3 +25,5 @@
 > 3. 가장 긴 항목 기준으로 다룰 수 있는 최대 Batchsize 결정
 > 4. Batchsize 만큼 sampling ( 가장 긴 pad항목 포함 )
 > 5. 적합한 padding 결정후 crop
+> 
+> 그런데, 학습상에서 시간이 지남에 대해 단조롭게 pad가 감소하는것은 성능에 영향을 줄수 있으므로, 이렇게 시뮬레이션 된것들의 batch를 묶고, batch간의 순서를 shuffle한다.

@@ -1,4 +1,4 @@
-import recovery
+from recovery import _integrated_string as istring_type
 def kmp_search(string, key, pi = None):
     # kmp_search_all
     # return [start, end]
@@ -32,12 +32,14 @@ def kmp_pi(key):
             j+=1
             pi[i] = j
     return pi
-def search(istring:recovery._integrated_string, tokenizer, key, lower = True):
+def search(tokenizer, istring:istring_type, key:istring_type, lower = True):
     def stride_support_search(input_ids):
         return [I for candidate_ids, pi in zip(candidates_ids, candidates_pi)
                     for I in kmp_search(input_ids, candidate_ids, pi = pi)]
     encoded = istring(tokenizer)
     ids = encoded['input_ids']
+    key = key.__str__(lower = lower)
+
     candidates_ids = [ids[encoded.char_to_token(0, S) : encoded.char_to_token(0, E) + 1]
             for (S, E) in kmp_search(istring.__str__(lower = lower), key)]
     candidates_pi = [kmp_pi(candidate_ids) for candidate_ids in candidates_ids]
